@@ -10,12 +10,14 @@ This code uses Akka streams to attempt build a third order approximation of an u
 
 The approximation does well so far when the unknown function is linear,
 
-![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![alt text](Linear.png)
 
 but not so well in the non-linear case,
 
-![alt text](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![alt text](Root.png)
+![alt text](Log.png)
 
+Two problems with this method is that every average rate of change if worth the same in the approximation of the derivatives and sequential data points may be far apart, where ideally we would calculate the average rate of change over small intervals. It might be possible to weight the effect of each average rate of change such that small-distance rates of change are valued more than larger ones.
 
 
 
