@@ -39,7 +39,7 @@ object Main {
       }
   }
 
-  //Calculate the average of the second derivative.
+  //Calculate the average of the first derivative.
   val dx: Flow[(Double, Double, Double, Double, Double), (Double, Double, Double, Double, Double, Double, Double), NotUsed] = Flow[(Double,Double,Double,Double,Double)].statefulMapConcat {
     () =>
       var dx_avg:Double = 0
@@ -58,6 +58,8 @@ object Main {
       }
   }
 
+  
+  //Calculate the average of the second derivative.
   val dx2: Flow[(Double, Double, Double, Double, Double, Double, Double), (Double, Double, Double, Double, Double, Double, Double, Double, Double), NotUsed] = Flow[(Double,Double,Double,Double,Double,Double,Double)].statefulMapConcat {
     () =>
       var dx2_avg:Double = 0
@@ -76,6 +78,8 @@ object Main {
       }
   }
 
+  
+  //Calculate the average of the third derivative.
   val dx3: Flow[(Double, Double, Double, Double, Double, Double, Double, Double, Double), (Double, Double, Double, Double, Double, Double, Double, Double, Double, Double), NotUsed] = Flow[(Double,Double,Double,Double,Double,Double,Double,Double,Double)].statefulMapConcat {
     () =>
       var dx3_avg:Double = 0
@@ -95,6 +99,8 @@ object Main {
   }
 
 
+  
+  //Get value of taylor approximation.
   val predict: Flow[(Double, Double, Double, Double, Double, Double, Double, Double, Double, Double), (Double, Double), NotUsed] = Flow[(Double,Double,Double,Double,Double,Double,Double,Double,Double,Double)].map(in => (in._3,  in._5 + (in._7 * (in._2 - in._4))  + (in._9 * pow(in._2 - in._4,2))/2  + (in._10 * pow(in._2 - in._4,3))/6))
 
   //relative measure of error / actual
@@ -105,7 +111,7 @@ object Main {
   val result: Future[Seq[Double]] = input.via(mean).via(dx).via(dx2).via(dx3).via(predict).via(measure).runWith(sink)
 
 
-
+  // write result
   val data: Unit = result.onComplete{
     case Success(data) => {
       println(data.length)
@@ -122,7 +128,7 @@ object Main {
 
 
 
-    case Failure(exception) => println(s"yikes $exception")
+    case Failure(exception) => println(s"Exception of $exception")
       system.terminate()
   }
 
