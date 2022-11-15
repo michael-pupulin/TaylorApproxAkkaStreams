@@ -6,7 +6,13 @@ Functions that are infinietly differentiable about a point, $a$, can be approxim
 f(x) \approx \sum_{n=0}^{\infty} \frac{f^n(a)(x-a)^n}{n!} . 
 ```
 
-This code uses Akka streams to attempt build a third order approximation of an unknown function $f(x)$ given an input of pairs $(x,f(x))$, where the third order approximation is, instead of building around a different point $a$ each time, uses the averages of the inputs and an average of the first,second and third derivative through an averaging of the average rate of changes between sequential inputs. \n
+This code uses Akka streams to build a third order approximation of an unknown function $f(x)$ given an input of pairs $(x,f(x))$,
+
+```math
+f(x) \approx f(a) + \frac{f^{'}(a)(x-a)}{1!} + \frac{f^{''}(a)(x-a)^2}{2!} + \frac{f^{'''}(a)(x-a)^3}{3!} ,
+```
+
+where the value $a$ is taken as the average of the $x$ values, $f(a)$ as the average of the $f(x)$ values, and the derivates of the function at the point $a$ are an average of the average rate of change between sequential data points.\n
 
 The approximation does well so far when the unknown function is linear,
 
