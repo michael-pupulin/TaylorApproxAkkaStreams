@@ -12,7 +12,7 @@ This code uses Akka streams to build a third order approximation of an unknown f
 f(x) \approx f(a) + \frac{f^{'}(a)(x-a)}{1!} + \frac{f^{''}(a)(x-a)^2}{2!} + \frac{f^{'''}(a)(x-a)^3}{3!} ,
 ```
 
-where the value $a$ is taken as the average of the $x$ values, $f(a)$ as the average of the $f(x)$ values, and the derivates of the function at the point $a$ are an average of the average rate of change between sequential data points.\n
+where the value $a$ is taken as the average of the $x$ values, $f(a)$ as the average of the $f(x)$ values, and the derivates of the function at the point $a$ are an average of the average rate of change between sequential data points.
 
 The approximation does well so far when the unknown function is linear,
 
